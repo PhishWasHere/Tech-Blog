@@ -1,9 +1,6 @@
 const {Comment, User, Post } = require('../../models');
 
-const router = require('express').Router();
-
-
-router.get('/:id', async (req, res) => {
+exports.getPost = async (req, res) => {
     try {
         const dbPostData = await Post.findByPk(req.params.id, {
             include: [
@@ -32,9 +29,9 @@ router.get('/:id', async (req, res) => {
         console.log(err);
         res.status(500).json(err);
     }
-});
+};
 
-router.post('/:id', async (req, res) => {
+exports.newPost = async (req, res) => {
     try {
         const data = await Comment.create({
             comment: req.body.comment,
@@ -51,7 +48,4 @@ router.post('/:id', async (req, res) => {
         console.log(err);
         res.status(500).json(err);
     }
-});
-
-
-module.exports = router;
+};

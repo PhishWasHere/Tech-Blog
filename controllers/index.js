@@ -1,10 +1,20 @@
 const express = require('express');
 const router = express.Router();
 
-const homeRoutes = require('./routes/index.js');
-// const userRoutes = require('./routes/userRoutes');
+const routes = require('./routes');
 
-router.use('/', homeRoutes);
-// router.use('/api/users', userRoutes);
+
+router.route('/').get(routes.findAll);
+router.route('/login').post(routes.userLogin);
+router.route('/login').get(routes.login);
+
+router.route('/signup').post(routes.userSignup); //do this route
+
+router.route('/logout').get(routes.logout);
+
+router.route('/dashboard').get(routes.dashboard);
+
+router.route('/post').get(routes.getPost);
+router.route('/post').post(routes.createPost);
 
 module.exports = router;

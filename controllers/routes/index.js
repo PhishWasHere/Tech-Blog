@@ -1,10 +1,7 @@
-const {Comment, User, Post } = require('../../models');
-const post = require('./post')
-const router = require('express').Router();
 
-router.use
+const { Post } = require('../../models');
 
-router.get('/', async (req, res) => {
+exports.findAll = async (req, res) => {
     try {
         const data = await Post.findAll({
         });
@@ -18,8 +15,16 @@ router.get('/', async (req, res) => {
         res.status(500).json(err);
         console.log(err);
     }
-});
+};
 
+exports.logout = async (req, res) => {
+    try {
+        req.session.destroy(() => {
+            res.status(204).end().redirect('/');
+        });
+    } catch (err) {
+        res.status(500).json(err);
+        console.log(err);
+    }
+};
 
-
-module.exports = router;
