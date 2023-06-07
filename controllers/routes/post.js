@@ -1,5 +1,6 @@
 const {Comment, User, Post } = require('../../models');
 
+
 exports.getPost = async (req, res) => {
     try {
         const dbPostData = await Post.findByPk(req.params.id, {
@@ -31,7 +32,7 @@ exports.getPost = async (req, res) => {
     }
 };
 
-exports.newPost = async (req, res) => {
+exports.createPost = async (req, res) => {
     try {
         const data = await Comment.create({
             comment: req.body.comment,

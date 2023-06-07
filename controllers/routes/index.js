@@ -1,5 +1,6 @@
 
-const { Post } = require('../../models');
+
+const {Post} = require('../../models');
 
 exports.findAll = async (req, res) => {
     try {
@@ -16,15 +17,3 @@ exports.findAll = async (req, res) => {
         console.log(err);
     }
 };
-
-exports.logout = async (req, res) => {
-    try {
-        req.session.destroy(() => {
-            res.status(204).end().redirect('/');
-        });
-    } catch (err) {
-        res.status(500).json(err);
-        console.log(err);
-    }
-};
-

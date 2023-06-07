@@ -2,11 +2,11 @@ const {User} = require('../../models');
 
 
 
-exports.login = async (req, res) => {
+exports.login = (req, res) => {
     try {
 
         if (req.session.logged_in) {
-            res.redirect('/dashboard');
+            res.status(303).redirect('/dashboard'); // 303 See Other, i think
             return;
         }
 
