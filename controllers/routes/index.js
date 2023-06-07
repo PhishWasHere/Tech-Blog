@@ -1,6 +1,8 @@
 const {Comment, User, Post } = require('../../models');
-
+const post = require('./post')
 const router = require('express').Router();
+
+router.use
 
 router.get('/', async (req, res) => {
     try {
@@ -17,3 +19,7 @@ router.get('/', async (req, res) => {
         console.log(err);
     }
 });
+
+
+
+module.exports = router;
