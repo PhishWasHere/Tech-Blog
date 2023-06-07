@@ -6,7 +6,7 @@ exports.login = async (req, res) => {
     try {
 
         if (req.session.logged_in) {
-            res.redirect('/profile');
+            res.redirect('/dashboard');
             return;
         }
 
@@ -21,7 +21,7 @@ exports.userLogin =  async (req, res) => {
     try {
 
         if (req.session.logged_in) {
-            res.redirect('/profile');
+            res.redirect('/dashboard');
             return;
         }
 

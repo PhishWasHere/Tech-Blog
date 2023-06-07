@@ -8,7 +8,8 @@ router.route('/').get(routes.findAll);
 router.route('/login').post(routes.userLogin);
 router.route('/login').get(routes.login);
 
-router.route('/signup').post(routes.userSignup); //do this route
+router.route('/signupPage').get(routes.userSignup); 
+router.route('/signup').post(routes.signup);
 
 router.route('/logout').get(routes.logout);
 
