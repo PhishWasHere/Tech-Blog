@@ -9,7 +9,7 @@ exports.findAll = async (req, res) => {
 
         const posts = data.map((post) => post.get({ plain: true }));
 
-        res.status(200).render('homepage', {
+        res.status(200).render('layouts/main', {
             posts,
         });
     } catch (err) {
