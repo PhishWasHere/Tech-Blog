@@ -1,4 +1,4 @@
-const {Comment, User, Post } = require('../../models');
+const {Comment, AppUser, Post } = require('../../models');
 
 
 exports.getPost = async (req, res) => {
@@ -9,7 +9,7 @@ exports.getPost = async (req, res) => {
                     model: Comment,
                     include: [
                         {
-                            model: User,
+                            model: AppUser,
                         },
                     ],
                 },

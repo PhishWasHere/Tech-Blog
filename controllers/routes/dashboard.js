@@ -1,4 +1,4 @@
-const {User, Post, Comment} = require('../../models');
+const {AppUser, Post, Comment} = require('../../models');
 
 exports.dashboard = async (req, res) => {
     try {
@@ -28,7 +28,7 @@ exports.dashboard = async (req, res) => {
         res.status(200).render('profile', {
             user,
         });
-
+ 
     } catch (err) {
         console.log(err);
         res.status(500).json(err);

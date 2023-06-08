@@ -23,4 +23,5 @@ router.route('/dashboard').get(dashboard.dashboard);
 router.route('/post').get(post.getPost);
 router.route('/post').post(post.createPost);
 
+
 module.exports = router;

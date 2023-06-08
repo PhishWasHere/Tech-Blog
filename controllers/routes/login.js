@@ -1,4 +1,4 @@
-const {User} = require('../../models');
+const {AppUser} = require('../../models');
 
 
 
@@ -25,7 +25,7 @@ exports.userLogin =  async (req, res) => {
             return;
         }
 
-        const userData = await User.findOne({
+        const userData = await AppUser.findOne({
         where: {
             email: req.body.email,
             },

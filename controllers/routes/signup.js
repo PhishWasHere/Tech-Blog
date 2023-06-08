@@ -1,4 +1,4 @@
-const {User} = require('../../models');
+const {AppUser} = require('../../models');
 
 
 exports.signupPage = async (req, res) => {
@@ -23,7 +23,7 @@ exports.signup = async (req, res) => {
             return;
         }
 
-        const data = await User.create({
+        const data = await AppUser.create({
             username: req.body.username,
             email: req.body.email,
             password: req.body.password
