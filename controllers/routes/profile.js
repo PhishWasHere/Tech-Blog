@@ -1,14 +1,16 @@
 const {AppUser, Post, Comment} = require('../../models');
 
-exports.dashboard = async (req, res) => {
+exports.profile = async (req, res) => {
     try {
 
-        if(!req.session.logged_in) {
+        let profileId = req.params.user.id || null;
+        console.log('user id: ', profileId);
+        if(!req.session.loggedIn) {
             res.redirect('/login');
             return;
         }
 
-        const userData = await User.findByPk(req.session.user_id, {
+        const userData = await AppUser.findByPk(profileId, {
             attributes: { exclude: ['password'] },
             include: [
                 {
@@ -25,8 +27,9 @@ exports.dashboard = async (req, res) => {
 
         const user = userData.get({ plain: true });
 
-        res.status(200).render('profile', {
+        res.status(200).render('profile', {formPartial: 'userPosts'}, {
             user,
+            
         });
  
     } catch (err) {

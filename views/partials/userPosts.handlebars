@@ -1,0 +1,21 @@
+    <section class="post-container">
+        {{#if user}}
+        {{#each}}
+        <article class="post-container">
+            <div class="post">
+                <div class="post-title">
+                    <h2>{{user.title}}</h2>
+                </div>
+                <div class="post-body">
+                    <p>{{user.post_text}}</p>
+                </div>
+                <form action="/post" method="GET">
+                    <button type="submit">View all comments</button>
+                </form>
+            </div>
+        </article>
+        {{/each}}
+        {{else}}
+        <h2>No posts yet!</h2>
+        {{/if}}
+    </section>

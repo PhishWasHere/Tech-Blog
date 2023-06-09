@@ -4,6 +4,7 @@ const {Post, AppUser} = require('../../models');
 
 exports.findAll = async (req, res) => {
     try {
+
         const data = await Post.findAll({
             include: [
                 {
@@ -16,9 +17,10 @@ exports.findAll = async (req, res) => {
 
         res.status(200).render('homepage', {
             posts,
+            loggedIn: req.session.loggedIn,
         });
     } catch (err) {
-        res.status(500).json(err);
         console.log(err);
+        res.status(500).json(err);
     }
 };

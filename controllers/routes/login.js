@@ -6,11 +6,11 @@ exports.login = (req, res) => {
     try {
 
         if (req.session.logged_in) {
-            res.status(303).redirect('/dashboard'); // 303 See Other, i think
+            res.status(303).redirect('/profile'); // 303 See Other, i think
             return;
         }
 
-        res.status(200).render('login');
+        res.status(200).render('profile', {formPartial: 'login'});
     } catch (err) {
         console.log(err);
         res.status(500).json(err);
@@ -20,14 +20,14 @@ exports.login = (req, res) => {
 exports.userLogin =  async (req, res) => {
     try {
 
-        if (req.session.logged_in) {
-            res.redirect('/dashboard');
+        if (req.session.loggedIn) {
+            res.redirect('/profile');
             return;
         }
 
         const userData = await AppUser.findOne({
         where: {
-            email: req.body.email,
+            username: req.body.username,
             },
         });
 
@@ -41,14 +41,13 @@ exports.userLogin =  async (req, res) => {
             res.status(500).json({ message: 'email or password incorrect' });
             return;
         }
-            
+            console.log('user val' , userData.id);
         req.session.save(() => {
             req.session.user = {};
-            req.session.user_id = userData.id;
-            req.session.logged_in = true;
+            req.session.user.id = userData.id;
+            req.session.loggedIn = true;
             res.status(200).redirect('/');
         });
-
     } catch (err) {
         console.log(err);
         res.status(500).json(err);

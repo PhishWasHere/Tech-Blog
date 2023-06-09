@@ -3,7 +3,10 @@ const {Comment, AppUser, Post } = require('../../models');
 
 exports.getPost = async (req, res) => {
     try {
-        const dbPostData = await Post.findByPk(req.params.id, {
+
+        let postId = req.params.id || null;
+
+        const dbPostData = await Post.findByPk(postId, {
             include: [
                 {
                     model: Comment,
@@ -25,6 +28,7 @@ exports.getPost = async (req, res) => {
         console.log(post);
         res.status(200).render('post', {
             post,
+            loggedIn: req.session.loggedIn,
         });
     } catch (err) {
         console.log(err);
@@ -36,7 +40,7 @@ exports.createPost = async (req, res) => {
     try {
         const data = await Comment.create({
             comment: req.body.comment,
-            user_id: req.session.user_id,
+            user_id: req.session.user.id,
             post_id: req.params.id,
         });
 

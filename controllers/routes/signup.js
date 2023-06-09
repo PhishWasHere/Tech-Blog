@@ -4,11 +4,11 @@ const {AppUser} = require('../../models');
 exports.signupPage = async (req, res) => {
     try {
         if (req.session.logged_in) {
-            res.redirect('/dashboard');
+            res.redirect('/profile');
             return;
         }
 
-        res.status(200).render('signup');
+        res.status(200).render('profile', {formPartial: 'signup'});
     } catch (err) {
         console.log(err);
         res.status(500).json(err);
@@ -19,8 +19,8 @@ exports.signup = async (req, res) => {
     try {
 
         if (req.session.logged_in) {
-            res.redirect('/dashboard');
-            return;
+            res.redirect('/profile');
+            return; 
         }
 
         const data = await AppUser.create({
