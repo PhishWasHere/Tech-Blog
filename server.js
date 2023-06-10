@@ -36,7 +36,9 @@ const sess = {
 
 app.use(session(sess));
 
-app.engine('handlebars', exphbs());
+const ifHelper = require('./utils/ifHelper');
+
+app.engine('handlebars', exphbs({helpers: {ifCont: ifHelper }}));
 app.set('view engine', 'handlebars');
 
 app.use(express.json());

@@ -1,6 +1,4 @@
 const {Comment, AppUser, Post } = require('../../models');
-const logInVali = require('../../utils/loginVal');
-
 
 exports.getPost = async (req, res) => {
     try {
@@ -34,6 +32,7 @@ exports.getPost = async (req, res) => {
         res.status(200).render('postDetails', {
             post,
             loggedIn: req.session.loggedIn,
+            currentUser: req.session.user.id,
         });
     } catch (err) {
         console.log(err);
