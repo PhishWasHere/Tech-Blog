@@ -25,14 +25,14 @@
             </div>
         </section>
 
-        {{#if post.comment}}
-        {{#each post.comment}}
+        {{#if post.comments}}
+        {{#each post.comments}}
         <section>
             <div>
-                <h3> {{post.comment_text}} </h3>
+                <h3> {{comment_text}} </h3>
             </div>
             <div>
-                <h4> {{post.comment.username}} </h4>
+                <h4> {{user.username}} </h4>
             </div>
         </section>
         {{/each}}
