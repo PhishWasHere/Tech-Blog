@@ -1,0 +1,54 @@
+<body>
+
+    <section class="post-container">
+
+        <article class="post-container">
+            <div class="post">
+                <div class="post-title">
+                    <h2>{{post.title}}</h2>
+                </div>
+                <div class="post-body">
+                    <p>{{post.post_text}}</p>
+                </div>
+                <div class="post-author">
+                    <h3>Author: {{user.username}}</h3> <!--fix later-->
+                </div>
+            </div>
+        </article>
+
+    {{#if loggedIn}}
+        <section>
+            <div>
+                <form action="/newcomment/{{post.id}}" method="POST">
+                    <textarea name="comment_text" id="comment_text" cols="30" rows="5"></textarea>
+                    <button type="submit">Add Comment</button>
+                </form>
+            </div>
+        </section>
+    {{/if}}
+
+        {{#if post.comments}}
+        {{#each post.comments}}
+        <section>
+            <div>
+                <h3> {{comment_text}} </h3>
+            </div>
+            <div>
+                <h4> {{user.username}} </h4>
+            </div>
+            {{#ifCond user_id '==' currentUserID}} <!--i couldnt get this to work
+            even if user_id and currentUserID are the same, the conditions werent met :< -->
+            <form action="/deletecomment/{{id}}" method="POST">
+                <button type="submit">Delete Comment</button>
+            </form>
+
+            <form action="/editcomment/{{id}}" method="GET">
+                <button type="submit">Edit Comment</button>
+            </form>
+            {{/ifCond}}
+        </section>
+        {{/each}}
+        {{/if}}
+    </section>
+
+</body>
