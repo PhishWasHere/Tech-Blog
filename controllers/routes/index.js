@@ -13,10 +13,10 @@ exports.findAll = async (req, res) => {
             ],
         });
 
-        const posts = data.map((post) => post.get({ plain: true }));
+        const post = data.map((post) => post.get({ plain: true }));
 
         res.status(200).render('homepage', {
-            posts,
+            post,
             loggedIn: req.session.loggedIn,
         });
     } catch (err) {

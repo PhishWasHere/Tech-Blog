@@ -11,11 +11,7 @@ exports.getPost = async (req, res) => {
             include: [
                 {
                     model: Comment,
-                    include: [
-                        {
-                            model: AppUser,
-                        },
-                    ],
+                    model: AppUser ,
                 },
             ],
         });
@@ -26,8 +22,8 @@ exports.getPost = async (req, res) => {
         }
 
         const post = dbPostData.get({ plain: true });
-        console.log(post);
-        res.status(200).render('post', {
+
+        res.status(200).render('postDetails', {
             post,
             loggedIn: req.session.loggedIn,
         });
@@ -70,15 +66,16 @@ exports.createPost =  async (req, res) => {
 exports.createComment = async (req, res) => {
     try {
 
+        const {post_id, comment_text} = req.body;
+
         const data = await Comment.create({
-            comment: req.body.comment,
+            comment_text: req.body.comment_text,
             user_id: req.session.user.id,
             post_id: req.params.id,
         });
 
-        res.status(200).redirect('/post:id', {
-            post_id: req.params.id,
-        });
+        res.status(200).redirect(`/post/${req.params.id}`);
+        
 
 
     } catch (err) {

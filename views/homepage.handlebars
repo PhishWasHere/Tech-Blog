@@ -4,13 +4,13 @@
         {{#if loggedIn}}
         <section>
             <form action="/newpost" method="GET">
-                <button type="submit">Create a new post</button>    
+                <button type="submit">Create a new post</button>
+            </form>
         </section>
         {{/if}}
 
-
-        {{#if posts}}
-        {{#each}}
+        {{#if post}}
+        {{#each post}}
         <article class="post-container">
             <div class="post">
                 <div class="post-title">
@@ -20,9 +20,9 @@
                     <p>{{post_text}}</p>
                 </div>
                 <div class="post-author">
-                    <h3>Author: {{username}}</h3>
+                    <h3>Author: {{user.username}}</h3>
                 </div>
-                <form action="/post" method="GET">
+                <form action="/post/{{id}}" method="GET">
                     <button type="submit">View all comments</button>
                 </form>
             </div>
@@ -31,6 +31,7 @@
         {{else}}
         <h2>No posts yet!</h2>
         {{/if}}
+
 
     </main>
 

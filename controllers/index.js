@@ -26,7 +26,7 @@ router.route('/profile/:id').get(profile.profile);
 
 router.route('/post').get(post.getPost);
 router.route('/post/:id').get(post.getPost);
-router.route('/newcomment').post(logInVali, post.createComment);
+router.route('/newcomment/:id').post(logInVali, post.createComment);
 router.route('/newpost').get(post.newPost);
 router.route('/newpost').post(logInVali, post.createPost);
 
