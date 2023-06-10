@@ -36,8 +36,15 @@
             <div>
                 <h4> {{user.username}} </h4>
             </div>
-            {{#ifCond user_id '===' currentUser}}
-            if cond test
+            {{#ifCond user_id '==' currentUserID}} <!--i couldnt get this to work
+            even if user_id and currentUserID are the same, the conditions werent met :< -->
+            <form action="/deletecomment/{{id}}" method="POST">
+                <button type="submit">Delete Comment</button>
+            </form>
+
+            <form action="/editcomment/{{id}}" method="GET">
+                <button type="submit">Edit Comment</button>
+            </form>
             {{/ifCond}}
         </section>
         {{/each}}

@@ -32,7 +32,6 @@ exports.profile = async (req, res) => {
         }
 
         const user = userData.get({ plain: true });
-        console.log(user);
 
         res.status(200).render('profile', {formPartial: 'userPosts', 
             user,

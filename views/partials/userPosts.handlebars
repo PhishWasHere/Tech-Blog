@@ -5,6 +5,12 @@ test
 <h2>Post History</h2>
 <h3>{{title}}</h3>
 <p>{{post_text}}</p>
+<form action="/deletepost/{{id}}" method="POST">
+<button type="submit">Delete Post</button>
+</form>
+<form action="/edit/{{id}}" method="GET">
+<button type="submit">Edit Post</button>
+</form>
 {{/each}}
 {{else}}
 <h2>No Posts Yet</h2>

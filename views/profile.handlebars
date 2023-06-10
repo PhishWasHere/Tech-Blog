@@ -1,4 +1,8 @@
 <main>
-{{> (lookup . 'formPartial') }}
+    <form action="/newpost" method="GET">
+        <button type="submit">Create post</button>
+    </form>
+
+    {{> (lookup . 'formPartial') }}
 
 </main>

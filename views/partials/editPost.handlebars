@@ -1,0 +1,37 @@
+<form >
+    <input type="hidden" id="post-id" value="{{post.id}}" />
+    <label idfor="title">Title</label>
+    <input type="text" name="title" id="title" value="{{title}}">
+    <label for="post_text">Post</label>
+    <textarea name="post_text" id="post_text" cols="30" rows="10">{{post_text}}</textarea>
+    <button id="btn" type="submit">Edit Post</button>
+
+
+    {{! need this script because HTML cant do put requests and im not making middleware to handle that
+    nor am i making a js file just to deal with this 1 thing}}
+    <script> 
+        const btn = document.getElementById('btn');
+        let title = document.getElementById('title');
+        let post_text = document.getElementById('post_text');
+        const postId = document.getElementById('post-id');
+
+        btn.addEventListener('click', (e) => {
+            e.preventDefault();
+            fetch('/edit/' + postId.value, {
+                method: 'PUT',
+                body: JSON.stringify({
+                    title: title.value,
+                    post_text: post_text.value
+                }),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }).then((res) => {
+                document.location.replace('/profile');
+                console.log(res);
+            }).catch((err) => {
+                console.log(err);
+            });
+        });
+    </script>
+</form>
