@@ -1,4 +1,5 @@
 const {Comment, AppUser, Post } = require('../../models');
+const logInVali = require('../../utils/loginVal');
 
 
 exports.getPost = async (req, res) => {
@@ -36,8 +37,39 @@ exports.getPost = async (req, res) => {
     }
 };
 
-exports.createPost = async (req, res) => {
+
+exports.newPost = async (req, res) => {
     try {
+        res.status(200).render('newPost',{
+            loggedIn: req.session.loggedIn,
+        });
+    } catch (err) {
+        console.log(err);
+        res.status(500).json(err);
+    }
+};
+
+exports.createPost =  async (req, res) => {
+    try {
+
+        const data = await Post.create({
+            title: req.body.title,
+            post_text: req.body.post_text,
+            user_id: req.session.user.id,
+        });
+
+        res.status(200).render('newPost',{
+            loggedIn: req.session.loggedIn,
+        });
+    } catch (err) {
+        console.log(err);
+        res.status(500).json(err);
+    }
+};
+
+exports.createComment = async (req, res) => {
+    try {
+
         const data = await Comment.create({
             comment: req.body.comment,
             user_id: req.session.user.id,
