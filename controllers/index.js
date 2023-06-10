@@ -13,11 +13,11 @@ const post = require('./routes/post');
 
 router.route('/').get(routes.findAll);
 
-router.route('/login').get(logInVali, login.login);
-router.route('/login').post(logInVali, login.userLogin);
+router.route('/login').get(login.login);
+router.route('/login').post(login.userLogin);
 
-router.route('/signup').get(logInVali, signup.signupPage); 
-router.route('/signup').post(logInVali, signup.signup);
+router.route('/signup').get(signup.signupPage); 
+router.route('/signup').post(signup.signup);
 
 router.route('/logout').get(logout.logout);
 

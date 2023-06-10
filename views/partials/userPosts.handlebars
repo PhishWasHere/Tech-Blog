@@ -1,0 +1,21 @@
+
+test
+{{#if user.posts}}
+{{#each user.posts}}
+<h2>Post History</h2>
+<h3>{{title}}</h3>
+<p>{{post_text}}</p>
+{{/each}}
+{{else}}
+<h2>No Posts Yet</h2>
+{{/if}}
+
+{{#if user.comments}}
+{{#each user.comments}}
+<h2>Comment History</h2>
+<h3>{{comment_text}}</h3>
+{{/each}}
+{{else}}
+<h2>No Comments Yet</h2>
+{{/if}}
+

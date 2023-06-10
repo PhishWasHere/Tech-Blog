@@ -56,15 +56,17 @@ exports.newPost = async (req, res) => {
 exports.createPost =  async (req, res) => {
     try {
 
-        const data = await Post.create({
+        const data = ({
             title: req.body.title,
             post_text: req.body.post_text,
             user_id: req.session.user.id,
         });
 
-        res.status(200).render('newPost',{
-            loggedIn: req.session.loggedIn,
-        });
+        const createdPost = await Post.create(data);
+        const postId = createdPost.id;
+        console.log(postId);
+
+        res.status(200).redirect(`/post/${postId}`);
     } catch (err) {
         console.log(err);
         res.status(500).json(err);
