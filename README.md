@@ -9,6 +9,7 @@
   - [Contributing](#contributing)
   - [Tests](#tests)
   - [Questions](#questions)
+  - [Bugs](#bugs)
 
   ## License
   ![badge](https://img.shields.io/badge/license-MIT-brightgreen)
@@ -32,4 +33,7 @@
 
   ## Questions
   If you have any questions, please contact me at N/A. You can also visit my [GitHub profile](https://github.com/PhishWasHere/).
+  
+  ## Bugs
+  When you first signup and login, you will need to login again
   
