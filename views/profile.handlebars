@@ -1,7 +1,10 @@
 <main>
+    {{#if loggedIn}}
     <form action="/newpost" method="GET">
-        <button type="submit">Create post</button>
+        <button type="submit" class="btn btn-primary">Create post</button>
     </form>
+    {{/if}}
+
 
     {{> (lookup . 'formPartial') }}
 

@@ -6,7 +6,7 @@ exports.login = (req, res) => {
     try {
 
         if (req.session.logged_in) {
-            res.status(303).redirect('/profile'); // 303 See Other, i think
+            res.status(302).redirect('/profile'); //redir to user profile if already logged in, couldve made this a helper fn or something in heindsite
             return;
         }
 
@@ -21,31 +21,27 @@ exports.userLogin =  async (req, res) => {
     try {
 
         if (req.session.loggedIn) {
-            res.redirect('/profile');
+            res.status(302).redirect('/profile');
             return;
         }
 
-        const userData = await AppUser.findOne({
+        const userData = await AppUser.findOne({ //finds a user by their username
         where: {
-            username: req.body.username,
+            username: req.body.username.trim(), //trim removes whitespace
             },
         });
 
-        if (!userData) {
-            res.status(500).json({ message: 'email or password incorrect' });
+        const validPassword = await userData.checkPassword(req.body.password.trim());
+
+        if (!validPassword || !userData) { //if the password is invalid or the user doesnt exist
+            res.status(500).json({ alert: 'email or password incorrect' }); //send an error
             return;
         }
 
-        const validPassword = await userData.checkPassword(req.body.password);
-        if (!validPassword) {
-            res.status(500).json({ message: 'email or password incorrect' });
-            return;
-        }
-            console.log('user val' , userData.id);
         req.session.save(() => {
-            req.session.user = {};
-            req.session.user.id = userData.id;
-            req.session.loggedIn = true;
+            req.session.user = {}; //create a session for the user
+            req.session.user.id = userData.id; //set the user id
+            req.session.loggedIn = true; //set logged in to true
             res.status(200).redirect('/');
         });
     } catch (err) {

@@ -3,7 +3,7 @@ const {AppUser} = require('../../models');
 
 exports.signupPage = async (req, res) => {
     try {
-        if (req.session.logged_in) {
+        if (req.session.logged_in) { //if the user is logged in
             res.redirect('/profile');
             return;
         }
@@ -15,18 +15,18 @@ exports.signupPage = async (req, res) => {
     }
 };
 
-exports.signup = async (req, res) => {
+exports.signup = async (req, res) => { 
     try {
 
-        if (req.session.logged_in) {
+        if (req.session.logged_in) { //if the user is logged in
             res.redirect('/profile');
             return; 
         }
 
         const data = await AppUser.create({
-            username: req.body.username,
-            email: req.body.email,
-            password: req.body.password
+            username: req.body.username.trim(),
+            email: req.body.email.trim(),
+            password: req.body.password.trim(),
         });
 
         res.status(200).redirect('/login');

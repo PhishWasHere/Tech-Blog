@@ -3,17 +3,16 @@ const {AppUser, Post, Comment} = require('../../models');
 exports.profile = async (req, res) => {
     try {
 
-        let profileId = req.session.user.id || null;
-
         if(!req.session.loggedIn) {
-            res.redirect('/login');
+            res.redirect('/login'); //redirect to login if not logged in
             return;
         }
+        
+        let profileId = req.session.user.id || null;
 
-
-        const userData = await AppUser.findByPk(profileId, {
-            attributes: { exclude: ['password'] },
-            include: [
+        const userData = await AppUser.findByPk(profileId, { // finds a user by its primary key, or by the id passed in the url
+            attributes: { exclude: ['password'] }, //exclude the password from the query
+            include: [ //include the posts and comments the user has made
                 {
                     model: Post,
                     attributes: ['id', 'title', 'post_text', 'created_at'],

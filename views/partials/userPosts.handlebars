@@ -1,27 +1,32 @@
-
-test
 {{#if user.posts}}
+    <h2>Post History</h2>
 {{#each user.posts}}
-<h2>Post History</h2>
-<h3>{{title}}</h3>
-<p>{{post_text}}</p>
-<form action="/deletepost/{{id}}" method="POST">
-<button type="submit">Delete Post</button>
-</form>
-<form action="/edit/{{id}}" method="GET">
-<button type="submit">Edit Post</button>
-</form>
+<div class="mt-4">
+    <h3>{{title}}</h3>
+    <p>{{post_text}}</p>
+    <form action="/deletepost/{{id}}" method="POST">
+        <button type="submit" class="btn btn-danger">Delete Post</button>
+    </form>
+    <form action="/edit/{{id}}" method="GET">
+        <button type="submit" class="btn btn-primary">Edit Post</button>
+    </form>
+</div>
 {{/each}}
 {{else}}
-<h2>No Posts Yet</h2>
+<div class="mt-4">
+    <h2>No Posts Yet</h2>
+</div>
 {{/if}}
 
 {{#if user.comments}}
+    <h2>Comment History</h2>
 {{#each user.comments}}
-<h2>Comment History</h2>
-<h3>{{comment_text}}</h3>
+<div class="mt-4">
+    <h3>{{comment_text}}</h3>
+</div>
 {{/each}}
 {{else}}
-<h2>No Comments Yet</h2>
+<div class="mt-4">
+    <h2>No Comments Yet</h2>
+</div>
 {{/if}}
-
