@@ -5,7 +5,7 @@ exports.getPost = async (req, res) => {
 
         let postId = req.params.id || null;
 
-        const dbPostData = await Post.findByPk(postId, {
+        const dbPostData = await Post.findByPk(postId, { // finds a post by its primary key, or by the id passed in the url
             include: [
                 {
                     model: Comment,
@@ -27,12 +27,10 @@ exports.getPost = async (req, res) => {
         }
 
         const post = dbPostData.get({ plain: true });
-        console.log(post, 'user ID', req.session.user.id);
 
         res.status(200).render('postDetails', {
             post,
-            currentUserID: req.session.user.id,
-            loggedIn: req.session.loggedIn,
+            loggedIn: req.session.loggedIn, //pass in the session variable so the {{#if loggedIn}} handlebars works
         });
     } catch (err) {
         console.log(err); 
@@ -44,7 +42,7 @@ exports.getPost = async (req, res) => {
 exports.newPost = async (req, res) => {
     try {
         res.status(200).render('newPost',{
-            loggedIn: req.session.loggedIn,
+            loggedIn: req.session.loggedIn, 
         });
     } catch (err) {
         console.log(err);
@@ -55,17 +53,16 @@ exports.newPost = async (req, res) => {
 exports.createPost =  async (req, res) => {
     try {
 
-        const data = ({
-            title: req.body.title,
-            post_text: req.body.post_text,
+        const data = ({ // create a new post and links it to a user
+            title: req.body.title.trim(),
+            post_text: req.body.post_text.trim(),
             user_id: req.session.user.id,
         });
 
-        const createdPost = await Post.create(data);
-        const postId = createdPost.id;
-        console.log(postId);
+        const createdPost = await Post.create(data); // creates a new post 
+        const postId = createdPost.id; // gets the id of the post that was just created
 
-        res.status(200).redirect(`/post/${postId}`);
+        res.status(200).redirect(`/post/${postId}`); // redirects to the post page
     } catch (err) {
         console.log(err);
         res.status(500).json(err);
@@ -75,17 +72,13 @@ exports.createPost =  async (req, res) => {
 exports.createComment = async (req, res) => {
     try {
 
-        const {post_id, comment_text} = req.body;
-
-        const data = await Comment.create({
-            comment_text: req.body.comment_text,
+        const data = await Comment.create({ // creates a new comment and links it to a user and a post
+            comment_text: req.body.comment_text.trim(),
             user_id: req.session.user.id,
             post_id: req.params.id,
         });
 
-        res.status(200).redirect(`/post/${req.params.id}`);
-        
-
+        res.status(200).redirect(`/post/${req.params.id}`); // redirects to the post page
 
     } catch (err) {
         console.log(err);
@@ -94,11 +87,12 @@ exports.createComment = async (req, res) => {
 };
 
 exports.deletePost = async (req, res) => {
-    try {
-        const data = await Post.destroy({
+    try { 
+        const data = await Post.destroy({ // deletes a post by its primary key
             where: {
                 id: req.params.id,
             },
+            include: [ Comment ], // also deletes all comments associated with the post
         });
 
         if (!data) {
@@ -115,7 +109,7 @@ exports.deletePost = async (req, res) => {
 
 exports.editPostHBS = async (req, res) => {
     try {
-        const dbPostData = await Post.findByPk(req.params.id, {
+        const dbPostData = await Post.findByPk(req.params.id, { // finds a post by its primary key
             include: [
                 {
                     model: Comment,
@@ -134,28 +128,28 @@ exports.editPostHBS = async (req, res) => {
         }
 
         const post = dbPostData.get({ plain: true });
-        console.log('in edit hbs');
-        res.status(200).render('profile', {formPartial: 'editPost',
+
+        res.status(200).render('profile', {formPartial: 'editPost', // renders the edit post form
             post,
-            loggedIn: req.session.loggedIn,
+            loggedIn: req.session.loggedIn, //pass in the session variable so the {{#if loggedIn}} handlebars works
         });
     } catch (err) {
         console.log(err); 
         res.status(500).json(err);
     }
 }
-console.log('post route git');
+
 exports.editPost = async (req, res) => {
-    console.log('editpost');
+
     try {
-        const data = await Post.update(
+        const data = await Post.update( // updates a post by its primary key
             {
-                title: req.body.title,
-                post_text: req.body.post_text,
+                title: req.body.title.trim(),
+                post_text: req.body.post_text.trim(),
             },
             {
                 where: {
-                    id: req.params.id,
+                    id: req.params.id, 
                 },
             }
         );
@@ -165,7 +159,7 @@ exports.editPost = async (req, res) => {
             return;
         }
 
-        res.status(200).redirect(`/post/${req.params.id}`);
+        res.status(200).redirect(`/post/${req.params.id}`); // redirects to the post page
     } catch (err) {
         console.log(err);
         res.status(500).json(err);

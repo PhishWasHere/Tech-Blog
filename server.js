@@ -1,3 +1,4 @@
+//dependencies
 const path = require('path');
 const express = require('express');
 const session = require('express-session');
@@ -34,11 +35,10 @@ const sess = {
   }),
 };
 
-app.use(session(sess));
+app.use(session(sess)); // add session to the server
 
-const ifHelper = require('./utils/ifHelper');
-
-app.engine('handlebars', exphbs({helpers: {ifCont: ifHelper }}));
+const ifHelper = require('./utils/ifHelper'); // add ifCondition helper to the server
+app.engine('handlebars', exphbs({helpers: {ifCont: ifHelper }})); // add ifCondition helper to the server/handlebars... but if i give it the correct name of ifCond, it breaks the comments
 app.set('view engine', 'handlebars');
 
 app.use(express.json());
@@ -49,6 +49,6 @@ app.use(routes);
 
 sequelize.sync({ force: false }).then(() => {
   app.listen(PORT, () =>
-    console.log('Now listening on http://localhost:3001/')
+    console.log(`Now listening on http://localhost:${PORT}/`)
   );
 });

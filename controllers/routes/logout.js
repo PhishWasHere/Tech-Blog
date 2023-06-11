@@ -1,7 +1,7 @@
 
 exports.logout = async (req, res) => {
     try {
-        req.session.destroy(() => {
+        req.session.destroy(() => { // destroys the session
             res.status(204).redirect('/');
         });
 
