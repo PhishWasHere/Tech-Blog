@@ -10,6 +10,8 @@ class AppUser extends Model {
     }
 }
 
+
+
 AppUser.init( 
     {
         id: {
@@ -31,33 +33,33 @@ AppUser.init(
             allowNull: false,
             unique: true,
             validate: {
-                len: [1, 100],
+                len: [1, 1000],
             },
             set(value) {
-              // Encrypt the email before saving
-              const algorithm = 'aes-256-cbc';
-              const encryptionKey = process.env.ENCRYPT_KEY;
-              const iv = crypto.randomBytes(16);
-              const cipher = crypto.createCipheriv(algorithm, encryptionKey, iv);
-              let encryptedEmail = cipher.update(value, 'utf8', 'hex');
-              encryptedEmail += cipher.final('hex');
-              this.setDataValue('email', `${iv.toString('hex')}:${encryptedEmail}`);
-            },
+                // Encrypt the email when set
+                const encryptionKey = Buffer.from(process.env.ENCRYPT_KEY, 'hex');
+                const iv = crypto.randomBytes(16);
+                const cipher = crypto.createCipheriv('aes-256-cbc', encryptionKey, iv);
+                let encryptedEmail = cipher.update(value, 'utf8', 'hex');
+                encryptedEmail += cipher.final('hex');
+                this.setDataValue('email', `${iv.toString('hex')}:${encryptedEmail}`);
+              },
             get() {
-              // Decrypt the email when accessed
-              const algorithm = 'aes-256-cbc';
-              const encryptionKey = process.env.ENCRYPT_KEY;
-              const encryptedValue = this.getDataValue('email');
-              if (!encryptedValue) {
-                return null;
-              }
-              const [ivHex, encryptedEmail] = encryptedValue.split(':');
-              const iv = Buffer.from(ivHex, 'hex');
-              const decipher = crypto.createDecipheriv(algorithm, encryptionKey, iv);
-              let decryptedEmail = decipher.update(encryptedEmail, 'hex', 'utf8');
-              decryptedEmail += decipher.final('utf8');
-              return decryptedEmail;
+                // Decrypt the email when accessed
+                const algorithm = 'aes-256-cbc';
+                const encryptionKey = Buffer.from(process.env.ENCRYPT_KEY, 'hex');
+                const encryptedValue = this.getDataValue('email');
+                if (!encryptedValue) {
+                  return null;
+                }
+                const [ivHex, encryptedEmail] = encryptedValue.split(':');
+                const iv = Buffer.from(ivHex, 'hex');
+                const decipher = crypto.createDecipheriv(algorithm, encryptionKey, iv);
+                let decryptedEmail = decipher.update(encryptedEmail, 'hex', 'utf8');
+                decryptedEmail += decipher.final('utf8');
+                return decryptedEmail;
             },
+              
         },
         password: {
             type: DataTypes.STRING,

@@ -47,8 +47,13 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(routes);
 
+
+const crypto = require('crypto');
+const encryptionKey = crypto.randomBytes(32).toString('hex');
+console.log(encryptionKey);
+
 sequelize.sync({ force: false }).then(() => {
   app.listen(PORT, () =>
-    console.log(`Now listening on http://localhost:${PORT}/`)
+    console.log(`Now listening on http://localhost:${PORT}/`, encryptionKey)
   );
 });
