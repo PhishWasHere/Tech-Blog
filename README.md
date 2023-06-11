@@ -1,0 +1,35 @@
+
+  # Tech Blog
+
+  ## Table of Contents
+
+  - [Installation](#installation)
+  - [Usage](#usage)
+  - [License](#license)
+  - [Contributing](#contributing)
+  - [Tests](#tests)
+  - [Questions](#questions)
+
+  ## License
+  ![badge](https://img.shields.io/badge/license-MIT-brightgreen)
+  <br />
+  This application is covered by the MIT license.
+
+  ## Description
+  A blog for tech
+
+  ## Installation
+  Visit live site, or clone the repo then install all modules and run the server
+
+  ## Usage
+  N/A
+
+  ## Contributing
+  N/A
+
+  ## Tests
+  N/A
+
+  ## Questions
+  If you have any questions, please contact me at N/A. You can also visit my [GitHub profile](https://github.com/PhishWasHere/).
+  
