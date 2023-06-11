@@ -27,7 +27,7 @@ exports.getPost = async (req, res) => {
         }
 
         const post = dbPostData.get({ plain: true });
-
+        console.log(post);
         res.status(200).render('postDetails', {
             post,
             loggedIn: req.session.loggedIn, //pass in the session variable so the {{#if loggedIn}} handlebars works

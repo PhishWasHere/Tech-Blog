@@ -22,10 +22,10 @@
                     <h2>{{title}}</h2>
                 </div>
                 <div class="post-body">
-                    <p>{{post_text}}</p>
+                    <h4>{{post_text}}</h4>
                 </div>
                 <div class="post-author">
-                    <h3>Author: {{user.username}}</h3>
+                    <p>Author: {{user.username}}</p>
                 </div>
                 <form action="/post/{{id}}" method="GET">
                     <button type="submit" class="btn btn-secondary">View all comments</button>

@@ -8,10 +8,10 @@
         <h2>{{post.title}}</h2>
       </div>
       <div class="post-body">
-        <p>{{post.post_text}}</p>
+        <h4>{{post.post_text}}</h4>
       </div>
       <div class="post-author">
-        <h3>Author: {{user.username}}</h3>
+        <p>Author: {{post.user.username}}</p>
       </div>
     </div>
   </article>
@@ -30,13 +30,14 @@
   {{/if}}
 
   {{#if post.comments}}
+    <h2>Comments: </h2>
   {{#each post.comments}}
   <section>
     <div>
-      <h3>{{comment_text}}</h3>
+      <h4>{{comment_text}}</h4>
     </div>
     <div>
-      <h4>{{user.username}}</h4>
+      <p>Author: {{user.username}}</p>
     </div>
     {{#ifCond user_id '===' currentUserID}} <!-- if the user_id of the comment matches the current user's id, show the delete and edit buttons.... but couldnt get it to work :< 
         the ifCond function seems to work, but for whatever reason, the user_id and currentUserID will never pass this condition-->
