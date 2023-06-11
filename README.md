@@ -6,6 +6,7 @@
   - [Installation](#installation)
   - [Usage](#usage)
   - [License](#license)
+  - [Site](#site)
   - [Contributing](#contributing)
   - [Tests](#tests)
   - [Questions](#questions)
@@ -15,6 +16,9 @@
   ![badge](https://img.shields.io/badge/license-MIT-brightgreen)
   <br />
   This application is covered by the MIT license.
+
+  ## Site
+   https://rabbit-ate-my-foot.herokuapp.com/ 
 
   ## Description
   A blog for tech
@@ -35,5 +39,5 @@
   If you have any questions, please contact me at N/A. You can also visit my [GitHub profile](https://github.com/PhishWasHere/).
   
   ## Bugs
-  When you first signup and login, you will need to login again
+  When you first signup and login, you will need to login again (only happens every now and again)
   
