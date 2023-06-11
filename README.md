@@ -39,5 +39,6 @@
   If you have any questions, please contact me at N/A. You can also visit my [GitHub profile](https://github.com/PhishWasHere/).
   
   ## Bugs
+  Google marks the site as Dangerous for some reason
   When you first signup and login, you will need to login again (only happens every now and again)
   
