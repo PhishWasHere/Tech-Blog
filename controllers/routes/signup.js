@@ -22,6 +22,7 @@ exports.signup = async (req, res) => {
             res.redirect('/profile');
             return; 
         }
+        
 
         const data = await AppUser.create({
             username: req.body.username.trim(),
